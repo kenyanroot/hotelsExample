@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{ offerid }}<br>{% for i in data.offers  %}{{ i.policies.deposit.acceptedPayments.creditCards }} {% endfor %}
+<form method="post" action="{% url 'book' offerid %}">{% csrf_token %}
+              <select required name = "title">
+                  <option value="MR">MR</option>
+                  <option value="MRS">MRS</option>
+                  <option value="OTHER">OTHER</option>
+              </select>
+
+            <input required  placeholder="First Name" name="firstname" type="text">
+            <input required  placeholder="Last Name"  name="lastname" type="text">
+            <input required placeholder="Phone" name="phone" type="text">
+            <input required  placeholder="Email" name="email" type="text">
+             <select required name = "dropdown">
+                 {% for i in data.offers  %}
+                 {% for i in i.policies.deposit.acceptedPayments.creditCards %}
+                    <option value = "{{ i }}" selected>{{ i }}</option>
+                 {% endfor %}
+                   {% endfor %}
+            </select>
+            <input required placeholder="Card Number" name="Card_number" type="text">
+           <input required  name="expiry" onfocus="(this.type='month')" onblur="(this.type='text')" type="month" placeholder="2000" class="max-w-sm" id="expiry" ">
+
+    <input type="submit">
+
+
+</form>
+
+</body>
+</html>

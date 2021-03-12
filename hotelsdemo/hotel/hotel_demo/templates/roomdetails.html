@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for i in data.offers %}
+{{ i.id }}
+<form method="post" action="{% url 'bookingform' i.id %}">{% csrf_token %}
+    {{ data }}<br><br>
+    <input name="data" type="hidden" value="{{ data }}">
+    <button type="submit">Book Room</button>
+</form>
+
+{% endfor %}
+
+
+</body>
+</html>

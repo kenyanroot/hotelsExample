@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+
+
+
+<form method= 'POST' action="{% url 'search' %}" >{% csrf_token %}
+           <input required name="citycode" type="text" placeholder="To?" id="searchField" list="datalist-data">
+
+
+                    <input required name="checkindate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Check-in">
+
+                    <input required name="checkoutdate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Check-out">
+
+            <button type="submit">Search</button>
+        </form>
+</body>
+</html>
