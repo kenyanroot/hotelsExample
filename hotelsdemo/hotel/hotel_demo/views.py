@@ -7,7 +7,15 @@ from amadeus import Client, ResponseError
 amadeus = Client(
             client_id='clientID',
             client_secret='ClientSecret',
-            hostname='production'
+            # Note: avoir using "production" for test, you will end up doing
+            # a real booking in the hotel backend and will give a bad reputation
+            # of your company. Use the test environment for testing
+            # and production for real bookings
+            # hostname='production',
+            # Note: I added this parameter that allows you to enable
+            # the debug mode from the SDK. It will give you many more logs
+            # to debug the requests.
+            log_level='debug'
         )
 
 
@@ -119,12 +127,16 @@ def book(request, offerid):
     if request.method == 'POST':
         data=request.POST.get('data', )
         title = request.POST.get('title', )
-        firstname = request.POST.get('FirstName', )
-        lastname = request.POST.get('LastName', )
+        # Note: the name was not matching the one sent by the html form
+        firstname = request.POST.get('firstname', )
+        # Note: the name was not matching the one sent by the html form
+        lastname = request.POST.get('lastname', )
         phone = request.POST.get('phone', )
         email = request.POST.get('email', )
-        cardVendorCode = request.POST.get('card_vendor_code', )
-        Card_number = request.POST.get('card_number', )
+        # Note: the name was not matching the one sent by the html form
+        cardVendorCode = request.POST.get('dropdown', )
+        # Note: the name was not matching the one sent by the html form
+        Card_number = request.POST.get('Card_number', )
         Expiry = request.POST.get('expiry', )
         # print(offerid, title, firstname, lastname, email, phoneno,cardVendorCode,Card_number,Expiry)
         offer = offerid
