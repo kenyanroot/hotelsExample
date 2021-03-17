@@ -17,12 +17,23 @@
             <input required  placeholder="Last Name"  name="lastname" type="text">
             <input required placeholder="Phone" name="phone" type="text">
             <input required  placeholder="Email" name="email" type="text">
-             <select required name = "dropdown">
-                 {% for i in data.offers  %}
-                 {% for i in i.policies.deposit.acceptedPayments.creditCards %}
-                    <option value = "{{ i }}" selected>{{ i }}</option>
-                 {% endfor %}
-                   {% endfor %}
+            <select required name = "dropdown">
+                <!-- I changed a bit the code here, it is not ideal but it is a temporary work around
+                The issue is: you can pay by credit card if it is guarantee, if it is deposit and sometimes even if it is
+                not specified so I made a 3 cases here just for the demo (guarantee/deposit and in case there is nothing I just hardcoded Visa) -->
+                {% for i in data.offers  %}
+                    {% if i.policies.guarantee is not None %}
+                        {% for i in i.policies.guarantee.acceptedPayments.creditCards %}
+                            <option value = "{{ i }}" selected>{{ i }}</option>
+                        {% endfor %}
+                    {% elif i.policies.deposit is not None %}
+                            {% for i in i.policies.deposit.acceptedPayments.creditCards %}
+                                <option value="{{ i }}" selected>{{ i }}</option>
+                            {% endfor %}
+                    {% else %}
+                            <option value="VI" selected>VI</option>
+                    {% endif %}
+                {% endfor %}
             </select>
             <input required placeholder="Card Number" name="Card_number" type="text">
            <input required  name="expiry" onfocus="(this.type='month')" onblur="(this.type='text')" type="month" placeholder="2000" class="max-w-sm" id="expiry" ">
